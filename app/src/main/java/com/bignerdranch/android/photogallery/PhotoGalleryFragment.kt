@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bignerdranch.android.photogallery.api.FlickrApi
 import com.bignerdranch.android.photogallery.databinding.FragmentPhotoGalleryBinding
 import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.create
 
 class PhotoGalleryFragment : Fragment() {
@@ -32,6 +33,7 @@ class PhotoGalleryFragment : Fragment() {
 
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("https://www.flickr.com/")
+            .addConverterFactory(ScalarsConverterFactory.create())
             .build()
 
         val flickerApi: FlickrApi = retrofit.create<FlickrApi>()
