@@ -6,8 +6,11 @@ import retrofit2.http.GET
 private const val API_KEY = BuildConfig.FLICKR_API_KEY
 
 interface FlickrApi {
-    @GET("/")
-    suspend fun fetchContents(): String  // A general response type called OkHttp.ResponseBody
-                                            // is provided with Retrofit.
-                                            // But here, we want it parse into a String object
+    @GET("services/rest/?method=flickr.interestingness.getList" +
+            "&api_key=$API_KEY" +
+            "&format=json" +
+            "&nojsoncallback=1" +
+            "&extras=url_s"
+    )
+    suspend fun fetchPhotos(): String
 }
