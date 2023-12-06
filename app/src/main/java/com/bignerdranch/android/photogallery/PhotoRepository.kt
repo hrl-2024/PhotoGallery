@@ -22,10 +22,6 @@ class PhotoRepository {
 
     private val flickrApi: FlickrApi = retrofit.create()
 
-//    init {
-//        flickrApi = retrofit.create()
-//    }
-
     suspend fun fetchPhotos(): List<GalleryItem> =
         flickrApi.fetchPhotos().photos.galleryItems
 
