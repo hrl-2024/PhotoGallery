@@ -2,21 +2,29 @@ package com.bignerdranch.android.photogallery
 
 import com.bignerdranch.android.photogallery.api.FlickrApi
 import com.bignerdranch.android.photogallery.api.GalleryItem
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.squareup.moshi.Moshi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
+private const val BASE_URL = "https://api.flickr.com/"
+
 class PhotoRepository {
-    private val flickrApi: FlickrApi
+    private val moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
-    init {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.flickr.com/")
-            .addConverterFactory(MoshiConverterFactory.create())
-            .build()
+    private val retrofit = Retrofit.Builder()
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .baseUrl(BASE_URL)
+        .build()
 
-        flickrApi = retrofit.create()
-    }
+    private val flickrApi: FlickrApi = retrofit.create()
+
+//    init {
+//        flickrApi = retrofit.create()
+//    }
 
     suspend fun fetchPhotos(): List<GalleryItem> =
         flickrApi.fetchPhotos().photos.galleryItems
