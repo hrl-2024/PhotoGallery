@@ -43,7 +43,7 @@ class PhotoGalleryFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 photoGalleryViewModel.galleryItems.collect { photos ->
                     Log.d(TAG, "Got ${photos.size} photos")
-                    // binding.photoGrid.adapter = PhotoAdapter(photos)
+                     binding.photoGrid.adapter = PhotoListAdapter(photos)
                 }
             }
         }
