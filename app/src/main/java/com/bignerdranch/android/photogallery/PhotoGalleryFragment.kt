@@ -34,8 +34,13 @@ class PhotoGalleryFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             Log.d(TAG, "API key is: ${BuildConfig.FLICKR_API_KEY}")
-            val response = PhotoRepository().fetchPhotos()
-            Log.d(TAG, "Response received: $response")
+
+            try {
+                val response = PhotoRepository().fetchPhotos()
+                Log.d(TAG, "Response received: $response")
+            } catch (ex: Exception) {
+                Log.e(TAG, "Failed to fetch photos", ex)
+            }
         }
     }
 
